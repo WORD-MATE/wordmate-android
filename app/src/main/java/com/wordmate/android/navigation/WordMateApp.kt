@@ -20,6 +20,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.toRoute
+import com.wordmate.android.core.ui.rememberRepository
+import com.wordmate.android.feature.auth.LoginScreen
+import com.wordmate.android.feature.auth.TermDetailScreen
+import com.wordmate.android.feature.auth.TermType
+import com.wordmate.android.feature.auth.TermsScreen
 import com.wordmate.android.core.designsystem.theme.WmColors
 import com.wordmate.android.core.designsystem.theme.WmTypography
 
@@ -63,8 +70,26 @@ fun NavHostController.navigateToMain() {
 }
 
 private fun androidx.navigation.NavGraphBuilder.authGraph(navController: NavHostController) {
-    composable<LoginRoute> { PlaceholderScreen("로그인") }
-    composable<TermsRoute> { PlaceholderScreen("약관 동의") }
+    composable<LoginRoute> {
+        val repository = rememberRepository()
+        LoginScreen(onLoginClick = {
+            repository.login()
+            navController.navigate(TermsRoute)
+        })
+    }
+    composable<TermsRoute> {
+        val user by rememberRepository().user.collectAsStateWithLifecycle()
+        TermsScreen(
+            userName = user.name,
+            onBack = { navController.popBackStack() },
+            onOpenDetail = { navController.navigate(TermDetailRoute(it.name)) },
+            onAgree = { navController.navigateToMain() },
+        )
+    }
+    composable<TermDetailRoute> { entry ->
+        val route = entry.toRoute<TermDetailRoute>()
+        TermDetailScreen(term = TermType.valueOf(route.termType), onBack = { navController.popBackStack() })
+    }
 }
 
 private fun androidx.navigation.NavGraphBuilder.mainTabs(navController: NavHostController) {
