@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'data/store.dart';
+import 'screens/auth/login_screen.dart';
 import 'screens/main_screen.dart';
 import 'utils/nav.dart';
 import 'utils/theme.dart';
@@ -28,7 +30,7 @@ class WordMateApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       theme: buildAppTheme(),
-      home: const MainScreen(),
+      home: store.loggedIn ? const MainScreen() : const LoginScreen(),
     );
   }
 }
