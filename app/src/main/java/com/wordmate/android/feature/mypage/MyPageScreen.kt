@@ -20,7 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BarChart
 import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.HelpOutline
+import androidx.compose.material.icons.automirrored.rounded.HelpOutline
 import androidx.compose.material.icons.rounded.MilitaryTech
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Campaign
@@ -80,7 +80,7 @@ fun MyPageScreen(
                 WmListRow("활동", icon = Icons.Rounded.Star, trailingText = "대결 기록 · 배지", onClick = onBattleHistoryClick)
                 WmListRow("설정", icon = Icons.Rounded.Settings, trailingText = "알림 · 계정", onClick = onSettingsClick)
                 WmListRow("공지사항", icon = Icons.Rounded.Campaign, onClick = onNoticeClick)
-                WmListRow("고객센터", icon = Icons.Rounded.HelpOutline, trailingText = "문의하기", onClick = onInquiryClick)
+                WmListRow("고객센터", icon = Icons.AutoMirrored.Rounded.HelpOutline, trailingText = "문의하기", onClick = onInquiryClick)
             }
             Spacer(Modifier.height(24.dp))
         }
