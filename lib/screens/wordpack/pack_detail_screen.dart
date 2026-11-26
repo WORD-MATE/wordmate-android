@@ -7,6 +7,8 @@ import '../../utils/theme.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/inputs.dart';
 import '../../widgets/layout.dart';
+import '../../utils/nav.dart';
+import '../study/study_setup_screen.dart';
 import 'pack_edit.dart';
 import 'report_sheet.dart';
 
@@ -21,9 +23,6 @@ class PackDetailScreen extends StatefulWidget {
   const PackDetailScreen({super.key, required this.pack});
 
   final WordPack pack;
-
-  /// 학습 설정 화면 열기. 학습 기능 커밋에서 연결한다.
-  static void Function(BuildContext context, WordPack pack) openStudy = (_, _) {};
 
   @override
   State<PackDetailScreen> createState() => _PackDetailScreenState();
@@ -115,7 +114,7 @@ class _PackDetailScreenState extends State<PackDetailScreen> {
               child: Row(children: [
                 Expanded(
                   child: AppButton('학습 시작',
-                      enabled: pack.words.isNotEmpty, onPressed: () => PackDetailScreen.openStudy(context, pack)),
+                      enabled: pack.words.isNotEmpty, onPressed: () => push(context, StudySetupScreen(pack: pack))),
                 ),
                 if (pack.isMine) ...[
                   Gap.w8,

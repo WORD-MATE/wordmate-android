@@ -7,6 +7,7 @@ import '../../utils/nav.dart';
 import '../../utils/theme.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/layout.dart';
+import '../study/study_setup_screen.dart';
 import '../wordpack/pack_detail_screen.dart';
 import 'notification_popup.dart';
 
@@ -78,7 +79,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-void _study(BuildContext context, WordPack pack) => mainTab.value = Tabs.wordPacks;
+void _study(BuildContext context, WordPack pack) => push(context, StudySetupScreen(pack: pack));
 
 void _openPack(BuildContext context, WordPack pack) => push(context, PackDetailScreen(pack: pack));
 
