@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'screens/main_screen.dart';
+import 'utils/nav.dart';
 import 'utils/theme.dart';
 
 void main() {
@@ -24,8 +26,9 @@ class WordMateApp extends StatelessWidget {
     return MaterialApp(
       title: 'WORD MATE',
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       theme: buildAppTheme(),
-      home: const Scaffold(body: Center(child: Text('WORD MATE'))),
+      home: const MainScreen(),
     );
   }
 }
