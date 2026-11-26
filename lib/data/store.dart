@@ -19,7 +19,7 @@ class AppStore extends ChangeNotifier {
   final List<DailyMission> missions = SampleData.missions();
   final DailySentence sentence = SampleData.sentence;
   final List<BattleRecord> battleRecords = SampleData.battleRecords();
-  final List<Badge> badges = SampleData.badges;
+  final List<RankBadge> badges = SampleData.badges;
 
   StudyResult? lastStudyResult;
   BattleRoom? currentRoom;

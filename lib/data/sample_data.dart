@@ -149,10 +149,10 @@ class SampleData {
       ];
 
   static const badges = [
-    Badge('10월 3주차 주간 상위 10%', '학교 전체 · 10월 21일', Medal.silver),
-    Badge('10월 3주차 주간 1등', '2학년 1반 · 10월 21일', Medal.gold, isNew: true),
-    Badge('10월 2주차 주간 상위 10%', '학교 전체 · 10월 14일', Medal.silver),
-    Badge('9월 월간 3등', '2학년 1반 · 9월 30일', Medal.bronze),
-    Badge('9월 4주차 주간 상위 10%', '학교 전체 · 9월 28일', Medal.silver),
+    RankBadge('10월 3주차 주간 상위 10%', '학교 전체 · 10월 21일', Medal.silver),
+    RankBadge('10월 3주차 주간 1등', '2학년 1반 · 10월 21일', Medal.gold, isNew: true),
+    RankBadge('10월 2주차 주간 상위 10%', '학교 전체 · 10월 14일', Medal.silver),
+    RankBadge('9월 월간 3등', '2학년 1반 · 9월 30일', Medal.bronze),
+    RankBadge('9월 4주차 주간 상위 10%', '학교 전체 · 9월 28일', Medal.silver),
   ];
 }

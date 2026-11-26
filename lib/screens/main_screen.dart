@@ -5,6 +5,7 @@ import '../utils/theme.dart';
 import '../widgets/layout.dart';
 import 'battle/battle_home_screen.dart';
 import 'home/home_screen.dart';
+import 'mypage/my_page_screen.dart';
 import 'ranking/ranking_screen.dart';
 import 'wordpack/word_packs_screen.dart';
 
@@ -32,7 +33,7 @@ class MainScreen extends StatelessWidget {
             const WordPacksScreen(),
             const BattleHomeScreen(),
             const RankingScreen(),
-            for (final (_, label) in _tabs.skip(4)) Center(child: Text(label, style: AppText.title1)),
+            const MyPageScreen(),
           ],
         ),
         bottomNavigationBar: _BottomBar(index: index, onSelect: (i) => mainTab.value = i),

@@ -322,8 +322,8 @@ class BattleRecord {
 
 enum Medal { gold, silver, bronze }
 
-class Badge {
-  const Badge(this.title, this.dateLabel, this.medal, {this.isNew = false});
+class RankBadge {
+  const RankBadge(this.title, this.dateLabel, this.medal, {this.isNew = false});
   final String title;
   final String dateLabel;
   final Medal medal;
