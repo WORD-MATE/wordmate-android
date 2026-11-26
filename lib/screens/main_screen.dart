@@ -5,6 +5,7 @@ import '../utils/theme.dart';
 import '../widgets/layout.dart';
 import 'battle/battle_home_screen.dart';
 import 'home/home_screen.dart';
+import 'ranking/ranking_screen.dart';
 import 'wordpack/word_packs_screen.dart';
 
 /// 하단 탭 5개(홈/단어팩/대결/랭킹/마이)를 가진 메인 화면.
@@ -30,7 +31,8 @@ class MainScreen extends StatelessWidget {
             const HomeScreen(),
             const WordPacksScreen(),
             const BattleHomeScreen(),
-            for (final (_, label) in _tabs.skip(3)) Center(child: Text(label, style: AppText.title1)),
+            const RankingScreen(),
+            for (final (_, label) in _tabs.skip(4)) Center(child: Text(label, style: AppText.title1)),
           ],
         ),
         bottomNavigationBar: _BottomBar(index: index, onSelect: (i) => mainTab.value = i),
