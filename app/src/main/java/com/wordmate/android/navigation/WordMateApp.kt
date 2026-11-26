@@ -93,15 +93,63 @@ private fun androidx.navigation.NavGraphBuilder.authGraph(navController: NavHost
 }
 
 private fun androidx.navigation.NavGraphBuilder.mainTabs(navController: NavHostController) {
-    composable<HomeRoute> { PlaceholderScreen("홈") }
+    composable<HomeRoute> {
+        com.wordmate.android.feature.home.HomeRoute(
+            onStudyClick = { navController.navigate(StudySetupRoute(it)) },
+            onBattleClick = { navController.navigateToTab(MainTab.Battle) },
+            onPackClick = { navController.navigate(PackDetailRoute(it)) },
+            onAllPacksClick = { navController.navigateToTab(MainTab.WordPacks) },
+            onRankingClick = { navController.navigateToTab(MainTab.Ranking) },
+            onBattleCodeClick = { navController.navigate(BattleCodeRoute) },
+        )
+    }
     composable<WordPacksRoute> { PlaceholderScreen("단어팩") }
     composable<BattleRoute> { PlaceholderScreen("대결") }
     composable<RankingRoute> { PlaceholderScreen("랭킹") }
     composable<MyPageRoute> { PlaceholderScreen("마이페이지") }
 }
 
+private fun androidx.navigation.NavGraphBuilder.featureGraph(navController: NavHostController) {
+    wordPackGraph(navController)
+    studyGraph(navController)
+    battleGraph(navController)
+    myPageGraph(navController)
+}
+
 @Suppress("UNUSED_PARAMETER")
-private fun androidx.navigation.NavGraphBuilder.featureGraph(navController: NavHostController) = Unit
+private fun androidx.navigation.NavGraphBuilder.wordPackGraph(navController: NavHostController) {
+    composable<PackDetailRoute> { PlaceholderScreen("단어팩 상세") }
+    composable<PackCreateRoute> { PlaceholderScreen("단어팩 만들기") }
+}
+
+@Suppress("UNUSED_PARAMETER")
+private fun androidx.navigation.NavGraphBuilder.studyGraph(navController: NavHostController) {
+    composable<StudySetupRoute> { PlaceholderScreen("학습 설정") }
+    composable<StudySessionRoute> { PlaceholderScreen("학습") }
+    composable<StudyResultRoute> { PlaceholderScreen("학습 결과") }
+}
+
+@Suppress("UNUSED_PARAMETER")
+private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHostController) {
+    composable<BattleCreateRoute> { PlaceholderScreen("대결방 만들기") }
+    composable<BattleSettingsRoute> { PlaceholderScreen("대결 설정") }
+    composable<BattleCodeRoute> { PlaceholderScreen("코드 입력") }
+    composable<BattleLobbyRoute> { PlaceholderScreen("대기실") }
+    composable<BattlePlayRoute> { PlaceholderScreen("대결") }
+    composable<BattleResultRoute> { PlaceholderScreen("대결 결과") }
+    composable<BattleWrongWordsRoute> { PlaceholderScreen("틀린 단어") }
+    composable<BattleHistoryRoute> { PlaceholderScreen("대결 기록") }
+}
+
+@Suppress("UNUSED_PARAMETER")
+private fun androidx.navigation.NavGraphBuilder.myPageGraph(navController: NavHostController) {
+    composable<BadgesRoute> { PlaceholderScreen("랭킹 배지") }
+    composable<SettingsRoute> { PlaceholderScreen("설정") }
+    composable<NotificationSettingsRoute> { PlaceholderScreen("알림 설정") }
+    composable<LoginManagementRoute> { PlaceholderScreen("로그인 관리") }
+    composable<NoticeRoute> { PlaceholderScreen("공지사항") }
+    composable<InquiryRoute> { PlaceholderScreen("문의하기") }
+}
 
 @Composable
 internal fun PlaceholderScreen(title: String) {
