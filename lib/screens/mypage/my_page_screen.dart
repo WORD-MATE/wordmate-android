@@ -9,10 +9,7 @@ import '../../widgets/inputs.dart';
 import '../../widgets/layout.dart';
 import '../battle/battle_lobby_screen.dart';
 import 'settings_screens.dart';
-
-/// 마이페이지 메뉴의 공지·고객센터 이동. 해당 화면 커밋에서 연결한다.
-void Function(BuildContext context) openNotice = (_) {};
-void Function(BuildContext context) openInquiry = (_) {};
+import 'support_screens.dart';
 
 /// 마이페이지 (Figma "마이페이지", "학습", "활동").
 class MyPageScreen extends StatelessWidget {
@@ -53,9 +50,9 @@ class MyPageScreen extends StatelessWidget {
                     onTap: () => push(context, const BattleHistoryScreen())),
                 MenuRow('설정',
                     icon: Icons.settings_rounded, trailingText: '알림 · 계정', onTap: () => push(context, const SettingsScreen())),
-                MenuRow('공지사항', icon: Icons.campaign_rounded, onTap: () => openNotice(context)),
+                MenuRow('공지사항', icon: Icons.campaign_rounded, onTap: () => push(context, const NoticeScreen())),
                 MenuRow('고객센터',
-                    icon: Icons.help_outline_rounded, trailingText: '문의하기', onTap: () => openInquiry(context)),
+                    icon: Icons.help_outline_rounded, trailingText: '문의하기', onTap: () => push(context, const InquiryScreen())),
               ]),
             ),
           ],
