@@ -1,20 +1,19 @@
 package com.wordmate.android.feature.auth
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -68,20 +67,19 @@ fun LoginScreen(onLoginClick: () -> Unit) {
 /** 라임색 하이라이트 위에 얹힌 "mate" 워드마크. */
 @Composable
 fun MateLogo(modifier: Modifier = Modifier) {
-    Box(modifier, contentAlignment = Alignment.BottomStart) {
-        Box(
-            Modifier
-                .offset(x = (-6).dp, y = (-10).dp)
-                .width(228.dp)
-                .height(22.dp)
-                .background(WmColors.Primary),
-        )
-        Text(
-            "mate",
-            style = WmTypography.Display.copy(fontSize = 84.sp, lineHeight = 88.sp, fontWeight = FontWeight.Black),
-            color = WmColors.TextPrimary,
-        )
-    }
+    Text(
+        "mate",
+        style = WmTypography.Display.copy(fontSize = 84.sp, lineHeight = 88.sp, fontWeight = FontWeight.Black),
+        color = WmColors.TextPrimary,
+        modifier = modifier.drawBehind {
+            val inset = 6.dp.toPx()
+            drawRect(
+                color = WmColors.Primary,
+                topLeft = Offset(-inset, size.height * 0.58f),
+                size = Size(size.width + inset * 2, size.height * 0.2f),
+            )
+        },
+    )
 }
 
 @Preview(showBackground = true, widthDp = 360, heightDp = 720)

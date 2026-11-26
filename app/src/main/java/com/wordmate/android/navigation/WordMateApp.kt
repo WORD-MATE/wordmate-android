@@ -131,7 +131,16 @@ private fun androidx.navigation.NavGraphBuilder.wordPackGraph(navController: Nav
             onStudyClick = { navController.navigate(StudySetupRoute(it)) },
         )
     }
-    composable<PackCreateRoute> { PlaceholderScreen("단어팩 만들기") }
+    composable<PackCreateRoute> {
+        com.wordmate.android.feature.wordpack.PackCreateScreen(
+            onBack = { navController.popBackStack() },
+            onCreated = { id ->
+                navController.navigate(PackDetailRoute(id)) {
+                    popUpTo<PackCreateRoute> { inclusive = true }
+                }
+            },
+        )
+    }
 }
 
 @Suppress("UNUSED_PARAMETER")

@@ -98,12 +98,12 @@ internal object SampleData {
             0,
         ),
         simplePack(
-            5, "중간고사 대비", "내 단어팩 · 8단어", PackCategory.Textbook,
+            5, "중간고사 대비", "시험 범위 핵심 단어", PackCategory.Textbook,
             listOf("abandon" to "버리다", "accurate" to "정확한", "achieve" to "성취하다", "adapt" to "적응하다", "adequate" to "충분한", "analyze" to "분석하다", "anticipate" to "예상하다", "attempt" to "시도하다"),
             3,
         ).copy(isMine = true, sourceLabel = "내 단어팩"),
         simplePack(
-            6, "헷갈리는 단어 모음", "내 단어팩 · 4단어", PackCategory.Suneung,
+            6, "헷갈리는 단어 모음", "affect·effect 같은 혼동 어휘", PackCategory.Suneung,
             listOf("affect" to "영향을 미치다", "effect" to "효과", "adopt" to "채택하다", "adapt" to "적응하다"),
             1,
         ).copy(isMine = true, sourceLabel = "내 단어팩"),
