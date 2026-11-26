@@ -35,6 +35,12 @@ import com.wordmate.android.data.model.StudyOptions
 import com.wordmate.android.feature.study.StudyResultScreen
 import com.wordmate.android.feature.study.StudySessionScreen
 import com.wordmate.android.feature.study.StudySetupScreen
+import com.wordmate.android.feature.battle.BattleCodeScreen
+import com.wordmate.android.feature.battle.BattleCreateScreen
+import com.wordmate.android.feature.battle.BattleHistoryScreen
+import com.wordmate.android.feature.battle.BattleHomeScreen
+import com.wordmate.android.feature.battle.BattleLobbyScreen
+import com.wordmate.android.feature.battle.BattleSettingsScreen
 import com.wordmate.android.core.designsystem.theme.WmColors
 import com.wordmate.android.core.designsystem.theme.WmTypography
 
@@ -117,7 +123,14 @@ private fun androidx.navigation.NavGraphBuilder.mainTabs(navController: NavHostC
             onCreateClick = { navController.navigate(PackCreateRoute) },
         )
     }
-    composable<BattleRoute> { PlaceholderScreen("대결") }
+    composable<BattleRoute> {
+        BattleHomeScreen(
+            onCreateClick = { navController.navigate(BattleCreateRoute) },
+            onCodeClick = { navController.navigate(BattleCodeRoute) },
+            onHistoryClick = { navController.navigate(BattleHistoryRoute) },
+            onMatched = { navController.navigate(BattleLobbyRoute) },
+        )
+    }
     composable<RankingRoute> { PlaceholderScreen("랭킹") }
     composable<MyPageRoute> { PlaceholderScreen("마이페이지") }
 }
@@ -199,14 +212,41 @@ private fun androidx.navigation.NavGraphBuilder.studyGraph(navController: NavHos
 
 @Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHostController) {
-    composable<BattleCreateRoute> { PlaceholderScreen("대결방 만들기") }
-    composable<BattleSettingsRoute> { PlaceholderScreen("대결 설정") }
-    composable<BattleCodeRoute> { PlaceholderScreen("코드 입력") }
-    composable<BattleLobbyRoute> { PlaceholderScreen("대기실") }
+    composable<BattleCreateRoute> {
+        BattleCreateScreen(
+            onBack = { navController.popBackStack() },
+            onNext = { navController.navigate(BattleSettingsRoute(it)) },
+        )
+    }
+    composable<BattleSettingsRoute> { entry ->
+        BattleSettingsScreen(
+            packId = entry.toRoute<BattleSettingsRoute>().packId,
+            onBack = { navController.popBackStack() },
+            onCreated = {
+                navController.navigate(BattleLobbyRoute) { popUpTo<BattleCreateRoute> { inclusive = true } }
+            },
+        )
+    }
+    composable<BattleCodeRoute> {
+        BattleCodeScreen(
+            onBack = { navController.popBackStack() },
+            onJoined = {
+                navController.navigate(BattleLobbyRoute) { popUpTo<BattleCodeRoute> { inclusive = true } }
+            },
+        )
+    }
+    composable<BattleLobbyRoute> {
+        BattleLobbyScreen(
+            onBack = { navController.popBackStack() },
+            onStart = {
+                navController.navigate(BattlePlayRoute) { popUpTo<BattleLobbyRoute> { inclusive = true } }
+            },
+        )
+    }
     composable<BattlePlayRoute> { PlaceholderScreen("대결") }
     composable<BattleResultRoute> { PlaceholderScreen("대결 결과") }
     composable<BattleWrongWordsRoute> { PlaceholderScreen("틀린 단어") }
-    composable<BattleHistoryRoute> { PlaceholderScreen("대결 기록") }
+    composable<BattleHistoryRoute> { BattleHistoryScreen(onBack = { navController.popBackStack() }) }
 }
 
 @Suppress("UNUSED_PARAMETER")
