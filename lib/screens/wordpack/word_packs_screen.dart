@@ -8,6 +8,7 @@ import '../../widgets/buttons.dart';
 import '../../widgets/inputs.dart';
 import '../../widgets/layout.dart';
 import 'pack_detail_screen.dart';
+import 'pack_edit.dart';
 
 /// 단어팩 탭 (Figma "단어팩 기본 단어팩", "단어팩 내 단어팩", "검색 결과 없음").
 class WordPacksScreen extends StatefulWidget {
@@ -70,7 +71,7 @@ class _WordPacksScreenState extends State<WordPacksScreen> {
                 padding: const EdgeInsets.all(Gap.screen),
                 children: [
                   if (_tab == 1) ...[
-                    AppButton('새 단어팩', height: 44, leading: Icons.add_rounded, onPressed: () => openCreatePack(context)),
+                    AppButton('새 단어팩', height: 44, leading: Icons.add_rounded, onPressed: () => push(context, const PackCreateScreen())),
                     Gap.h8,
                   ],
                   if (visible.isEmpty) const EmptyState(icon: Icons.bookmark_rounded, message: '검색 결과가 없어요'),
@@ -87,9 +88,6 @@ class _WordPacksScreenState extends State<WordPacksScreen> {
     );
   }
 }
-
-/// 새 단어팩 만들기 화면으로 이동한다. 내 단어팩 기능 커밋에서 연결한다.
-void Function(BuildContext context) openCreatePack = (_) {};
 
 class PackCard extends StatelessWidget {
   const PackCard({super.key, required this.pack, required this.onTap});

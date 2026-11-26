@@ -7,6 +7,7 @@ import '../../utils/theme.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/inputs.dart';
 import '../../widgets/layout.dart';
+import 'pack_edit.dart';
 import 'report_sheet.dart';
 
 Color wordStatusColor(WordStatus s) => switch (s) {
@@ -56,7 +57,11 @@ class _PackDetailScreenState extends State<PackDetailScreen> {
             title: pack.title,
             onBack: () => Navigator.pop(context),
             actions: [
-              AppIconButton(Icons.flag_outlined, tooltip: '신고', onPressed: () => showReportPackSheet(context, pack)),
+              if (pack.isMine)
+                AppIconButton(Icons.delete_outline_rounded,
+                    tooltip: '단어팩 삭제', onPressed: () => deletePackWithConfirm(context, pack))
+              else
+                AppIconButton(Icons.flag_outlined, tooltip: '신고', onPressed: () => showReportPackSheet(context, pack)),
             ],
           ),
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -98,27 +103,35 @@ class _PackDetailScreenState extends State<PackDetailScreen> {
                         key: ValueKey(words[i].id),
                         word: words[i],
                         hideMeaning: _hideMeaning,
-                        trailing: buildOwnerActions(context, pack, words[i]),
+                        trailing: ownerWordActions(context, pack, words[i]),
                       ),
                     ),
             ),
           ]),
-          bottomNavigationBar: buildBottomActions(context, pack),
+          bottomNavigationBar: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(Gap.screen, 12, Gap.screen, 12),
+              child: Row(children: [
+                Expanded(
+                  child: AppButton('학습 시작',
+                      enabled: pack.words.isNotEmpty, onPressed: () => PackDetailScreen.openStudy(context, pack)),
+                ),
+                if (pack.isMine) ...[
+                  Gap.w8,
+                  Expanded(
+                    child: AppButton('단어 추가',
+                        kind: ButtonKind.outline, leading: Icons.add_rounded, onPressed: () => addWordToPack(context, pack)),
+                  ),
+                ],
+              ]),
+            ),
+          ),
         );
       },
     );
   }
 }
-
-/// 내 단어팩일 때 단어별 수정/삭제 버튼. 내 단어팩 기능 커밋에서 채운다.
-List<Widget> Function(BuildContext context, WordPack pack, Word word) buildOwnerActions = (_, _, _) => const [];
-
-/// 하단 버튼 영역. 내 단어팩 기능 커밋에서 "단어 추가" 를 더한다.
-Widget Function(BuildContext context, WordPack pack) buildBottomActions = (context, pack) => BottomCta(
-      '학습 시작',
-      enabled: pack.words.isNotEmpty,
-      onPressed: () => PackDetailScreen.openStudy(context, pack),
-    );
 
 /// 단어 한 줄: 상태 점, 단어/뜻, 발음, 즐겨찾기.
 class WordRow extends StatefulWidget {
