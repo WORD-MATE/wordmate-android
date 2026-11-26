@@ -280,9 +280,25 @@ private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHo
 @Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.myPageGraph(navController: NavHostController) {
     composable<BadgesRoute> { com.wordmate.android.feature.mypage.BadgesScreen(onBack = { navController.popBackStack() }) }
-    composable<SettingsRoute> { PlaceholderScreen("설정") }
-    composable<NotificationSettingsRoute> { PlaceholderScreen("알림 설정") }
-    composable<LoginManagementRoute> { PlaceholderScreen("로그인 관리") }
+    composable<SettingsRoute> {
+        com.wordmate.android.feature.mypage.SettingsScreen(
+            onBack = { navController.popBackStack() },
+            onNotificationSettings = { navController.navigate(NotificationSettingsRoute) },
+            onLoginManagement = { navController.navigate(LoginManagementRoute) },
+            onTerms = { navController.navigate(TermDetailRoute(it)) },
+            onLoggedOut = {
+                navController.navigate(LoginRoute) {
+                    popUpTo(navController.graph.id) { inclusive = true }
+                }
+            },
+        )
+    }
+    composable<NotificationSettingsRoute> {
+        com.wordmate.android.feature.mypage.NotificationSettingsScreen(onBack = { navController.popBackStack() })
+    }
+    composable<LoginManagementRoute> {
+        com.wordmate.android.feature.mypage.LoginManagementScreen(onBack = { navController.popBackStack() })
+    }
     composable<NoticeRoute> { PlaceholderScreen("공지사항") }
     composable<InquiryRoute> { PlaceholderScreen("문의하기") }
 }
