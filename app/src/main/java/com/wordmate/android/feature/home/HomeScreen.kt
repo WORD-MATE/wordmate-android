@@ -394,7 +394,7 @@ private fun RankRow(entry: RankingEntry, myXp: Int) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text("${entry.rank}", style = WmTypography.Label1Bold, color = WmColors.TextPrimary, modifier = Modifier.width(28.dp))
-        WmAvatar(size = 28.dp)
+        WmAvatar(size = 28.dp, background = if (entry.isMe) WmColors.Background else WmPalette.Gray06)
         Spacer(Modifier.width(10.dp))
         Text(if (entry.isMe) "나" else entry.name, style = WmTypography.Label1, color = WmColors.TextPrimary, modifier = Modifier.weight(1f))
         Text("${fmt.format(entry.xp)} XP", style = WmTypography.Label1Bold, color = WmColors.TextPrimary)

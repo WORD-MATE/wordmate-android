@@ -197,12 +197,12 @@ fun WmThickDivider(modifier: Modifier = Modifier) {
 
 /** 회색 원 안 사람 아이콘 아바타. */
 @Composable
-fun WmAvatar(modifier: Modifier = Modifier, size: Dp = 40.dp) {
+fun WmAvatar(modifier: Modifier = Modifier, size: Dp = 40.dp, background: Color = WmPalette.Gray06) {
     Box(
         modifier = modifier
             .size(size)
             .clip(WmRadius.sm)
-            .background(WmPalette.Gray06),
+            .background(background),
         contentAlignment = Alignment.Center,
     ) {
         Icon(Icons.Rounded.Person, null, tint = WmPalette.Gray12, modifier = Modifier.size(size * 0.6f))

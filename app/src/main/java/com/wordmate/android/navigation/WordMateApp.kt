@@ -40,6 +40,9 @@ import com.wordmate.android.feature.battle.BattleCreateScreen
 import com.wordmate.android.feature.battle.BattleHistoryScreen
 import com.wordmate.android.feature.battle.BattleHomeScreen
 import com.wordmate.android.feature.battle.BattleLobbyScreen
+import com.wordmate.android.feature.battle.BattlePlayScreen
+import com.wordmate.android.feature.battle.BattleResultScreen
+import com.wordmate.android.feature.battle.BattleWrongWordsScreen
 import com.wordmate.android.feature.battle.BattleSettingsScreen
 import com.wordmate.android.core.designsystem.theme.WmColors
 import com.wordmate.android.core.designsystem.theme.WmTypography
@@ -210,7 +213,6 @@ private fun androidx.navigation.NavGraphBuilder.studyGraph(navController: NavHos
     }
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHostController) {
     composable<BattleCreateRoute> {
         BattleCreateScreen(
@@ -243,9 +245,26 @@ private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHo
             },
         )
     }
-    composable<BattlePlayRoute> { PlaceholderScreen("대결") }
-    composable<BattleResultRoute> { PlaceholderScreen("대결 결과") }
-    composable<BattleWrongWordsRoute> { PlaceholderScreen("틀린 단어") }
+    composable<BattlePlayRoute> {
+        BattlePlayScreen(
+            onExit = { navController.popBackStack() },
+            onFinished = {
+                navController.navigate(BattleResultRoute) { popUpTo<BattlePlayRoute> { inclusive = true } }
+            },
+        )
+    }
+    composable<BattleResultRoute> {
+        BattleResultScreen(
+            onClose = { navController.navigateToTab(MainTab.Battle) },
+            onWrongWordsClick = { navController.navigate(BattleWrongWordsRoute) },
+        )
+    }
+    composable<BattleWrongWordsRoute> {
+        BattleWrongWordsScreen(
+            onBack = { navController.popBackStack() },
+            onGoToPack = { navController.navigate(PackDetailRoute(it)) },
+        )
+    }
     composable<BattleHistoryRoute> { BattleHistoryScreen(onBack = { navController.popBackStack() }) }
 }
 
