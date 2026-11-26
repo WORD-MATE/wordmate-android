@@ -29,7 +29,13 @@ import kotlinx.serialization.Serializable
     val shuffle: Boolean,
     val onlyWrong: Boolean = false,
 )
-@Serializable data object StudyResultRoute
+@Serializable data class StudyResultRoute(
+    val packId: Long,
+    val mode: String,
+    val direction: String,
+    val count: Int,
+    val shuffle: Boolean,
+)
 
 // 대결
 @Serializable data object BattleCreateRoute

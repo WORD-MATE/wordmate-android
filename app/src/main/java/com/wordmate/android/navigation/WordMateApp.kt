@@ -29,6 +29,12 @@ import com.wordmate.android.feature.auth.TermType
 import com.wordmate.android.feature.auth.TermsScreen
 import com.wordmate.android.feature.wordpack.PackDetailScreen
 import com.wordmate.android.feature.wordpack.WordPacksScreen
+import com.wordmate.android.data.model.QuizDirection
+import com.wordmate.android.data.model.StudyMode
+import com.wordmate.android.data.model.StudyOptions
+import com.wordmate.android.feature.study.StudyResultScreen
+import com.wordmate.android.feature.study.StudySessionScreen
+import com.wordmate.android.feature.study.StudySetupScreen
 import com.wordmate.android.core.designsystem.theme.WmColors
 import com.wordmate.android.core.designsystem.theme.WmTypography
 
@@ -143,11 +149,52 @@ private fun androidx.navigation.NavGraphBuilder.wordPackGraph(navController: Nav
     }
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.studyGraph(navController: NavHostController) {
-    composable<StudySetupRoute> { PlaceholderScreen("학습 설정") }
-    composable<StudySessionRoute> { PlaceholderScreen("학습") }
-    composable<StudyResultRoute> { PlaceholderScreen("학습 결과") }
+    composable<StudySetupRoute> { entry ->
+        val packId = entry.toRoute<StudySetupRoute>().packId
+        StudySetupScreen(
+            packId = packId,
+            onBack = { navController.popBackStack() },
+            onStart = { options ->
+                navController.navigate(
+                    StudySessionRoute(packId, options.mode.name, options.direction.name, options.questionCount, options.shuffle),
+                )
+            },
+        )
+    }
+    composable<StudySessionRoute> { entry ->
+        val route = entry.toRoute<StudySessionRoute>()
+        val options = StudyOptions(
+            mode = StudyMode.valueOf(route.mode),
+            direction = QuizDirection.valueOf(route.direction),
+            questionCount = route.count,
+            shuffle = route.shuffle,
+        )
+        StudySessionScreen(
+            packId = route.packId,
+            options = options,
+            onlyWrong = route.onlyWrong,
+            onExit = { navController.popBackStack() },
+            onFinished = {
+                navController.navigate(StudyResultRoute(route.packId, route.mode, route.direction, route.count, route.shuffle)) {
+                    popUpTo<StudySessionRoute> { inclusive = true }
+                }
+            },
+        )
+    }
+    composable<StudyResultRoute> { entry ->
+        val route = entry.toRoute<StudyResultRoute>()
+        fun retry(onlyWrong: Boolean) {
+            navController.navigate(
+                StudySessionRoute(route.packId, route.mode, route.direction, route.count, route.shuffle, onlyWrong),
+            ) { popUpTo<StudyResultRoute> { inclusive = true } }
+        }
+        StudyResultScreen(
+            onClose = { navController.navigateToTab(MainTab.Home) },
+            onRetryWrong = { retry(onlyWrong = true) },
+            onRetryAll = { retry(onlyWrong = false) },
+        )
+    }
 }
 
 @Suppress("UNUSED_PARAMETER")
