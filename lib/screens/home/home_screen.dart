@@ -7,6 +7,7 @@ import '../../utils/nav.dart';
 import '../../utils/theme.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/layout.dart';
+import '../battle/battle_lobby_screen.dart';
 import '../study/study_setup_screen.dart';
 import '../wordpack/pack_detail_screen.dart';
 import 'notification_popup.dart';
@@ -83,7 +84,7 @@ void _study(BuildContext context, WordPack pack) => push(context, StudySetupScre
 
 void _openPack(BuildContext context, WordPack pack) => push(context, PackDetailScreen(pack: pack));
 
-void _battleInvite(BuildContext context) => mainTab.value = Tabs.battle;
+void _battleInvite(BuildContext context) => push(context, const BattleCodeScreen());
 
 class _HeroCard extends StatelessWidget {
   const _HeroCard({required this.name, required this.onStudy, required this.onBattle});

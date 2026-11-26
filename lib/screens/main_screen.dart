@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/nav.dart';
 import '../utils/theme.dart';
 import '../widgets/layout.dart';
+import 'battle/battle_home_screen.dart';
 import 'home/home_screen.dart';
 import 'wordpack/word_packs_screen.dart';
 
@@ -28,7 +29,8 @@ class MainScreen extends StatelessWidget {
           children: [
             const HomeScreen(),
             const WordPacksScreen(),
-            for (final (_, label) in _tabs.skip(2)) Center(child: Text(label, style: AppText.title1)),
+            const BattleHomeScreen(),
+            for (final (_, label) in _tabs.skip(3)) Center(child: Text(label, style: AppText.title1)),
           ],
         ),
         bottomNavigationBar: _BottomBar(index: index, onSelect: (i) => mainTab.value = i),
