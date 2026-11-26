@@ -4,6 +4,7 @@ import '../utils/nav.dart';
 import '../utils/theme.dart';
 import '../widgets/layout.dart';
 import 'home/home_screen.dart';
+import 'wordpack/word_packs_screen.dart';
 
 /// 하단 탭 5개(홈/단어팩/대결/랭킹/마이)를 가진 메인 화면.
 class MainScreen extends StatelessWidget {
@@ -26,7 +27,8 @@ class MainScreen extends StatelessWidget {
           index: index,
           children: [
             const HomeScreen(),
-            for (final (_, label) in _tabs.skip(1)) Center(child: Text(label, style: AppText.title1)),
+            const WordPacksScreen(),
+            for (final (_, label) in _tabs.skip(2)) Center(child: Text(label, style: AppText.title1)),
           ],
         ),
         bottomNavigationBar: _BottomBar(index: index, onSelect: (i) => mainTab.value = i),

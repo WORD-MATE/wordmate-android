@@ -7,6 +7,7 @@ import '../../utils/nav.dart';
 import '../../utils/theme.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/layout.dart';
+import '../wordpack/pack_detail_screen.dart';
 import 'notification_popup.dart';
 
 /// 홈 (Figma "메인화면").
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
 
 void _study(BuildContext context, WordPack pack) => mainTab.value = Tabs.wordPacks;
 
-void _openPack(BuildContext context, WordPack pack) => mainTab.value = Tabs.wordPacks;
+void _openPack(BuildContext context, WordPack pack) => push(context, PackDetailScreen(pack: pack));
 
 void _battleInvite(BuildContext context) => mainTab.value = Tabs.battle;
 
