@@ -135,7 +135,16 @@ private fun androidx.navigation.NavGraphBuilder.mainTabs(navController: NavHostC
         )
     }
     composable<RankingRoute> { com.wordmate.android.feature.ranking.RankingScreen() }
-    composable<MyPageRoute> { PlaceholderScreen("마이페이지") }
+    composable<MyPageRoute> {
+        com.wordmate.android.feature.mypage.MyPageScreen(
+            onBadgesClick = { navController.navigate(BadgesRoute) },
+            onStudyClick = { navController.navigateToTab(MainTab.WordPacks) },
+            onBattleHistoryClick = { navController.navigate(BattleHistoryRoute) },
+            onSettingsClick = { navController.navigate(SettingsRoute) },
+            onNoticeClick = { navController.navigate(NoticeRoute) },
+            onInquiryClick = { navController.navigate(InquiryRoute) },
+        )
+    }
 }
 
 private fun androidx.navigation.NavGraphBuilder.featureGraph(navController: NavHostController) {
@@ -270,7 +279,7 @@ private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHo
 
 @Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.myPageGraph(navController: NavHostController) {
-    composable<BadgesRoute> { PlaceholderScreen("랭킹 배지") }
+    composable<BadgesRoute> { com.wordmate.android.feature.mypage.BadgesScreen(onBack = { navController.popBackStack() }) }
     composable<SettingsRoute> { PlaceholderScreen("설정") }
     composable<NotificationSettingsRoute> { PlaceholderScreen("알림 설정") }
     composable<LoginManagementRoute> { PlaceholderScreen("로그인 관리") }
