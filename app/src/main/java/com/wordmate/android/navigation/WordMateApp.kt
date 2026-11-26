@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -45,7 +43,6 @@ import com.wordmate.android.feature.battle.BattleResultScreen
 import com.wordmate.android.feature.battle.BattleWrongWordsScreen
 import com.wordmate.android.feature.battle.BattleSettingsScreen
 import com.wordmate.android.core.designsystem.theme.WmColors
-import com.wordmate.android.core.designsystem.theme.WmTypography
 
 @Composable
 fun WordMateApp(navController: NavHostController = rememberNavController()) {
@@ -277,7 +274,6 @@ private fun androidx.navigation.NavGraphBuilder.battleGraph(navController: NavHo
     composable<BattleHistoryRoute> { BattleHistoryScreen(onBack = { navController.popBackStack() }) }
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.myPageGraph(navController: NavHostController) {
     composable<BadgesRoute> { com.wordmate.android.feature.mypage.BadgesScreen(onBack = { navController.popBackStack() }) }
     composable<SettingsRoute> {
@@ -299,13 +295,6 @@ private fun androidx.navigation.NavGraphBuilder.myPageGraph(navController: NavHo
     composable<LoginManagementRoute> {
         com.wordmate.android.feature.mypage.LoginManagementScreen(onBack = { navController.popBackStack() })
     }
-    composable<NoticeRoute> { PlaceholderScreen("공지사항") }
-    composable<InquiryRoute> { PlaceholderScreen("문의하기") }
-}
-
-@Composable
-internal fun PlaceholderScreen(title: String) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(title, style = WmTypography.Title1, color = WmColors.TextPrimary)
-    }
+    composable<NoticeRoute> { com.wordmate.android.feature.mypage.NoticeScreen(onBack = { navController.popBackStack() }) }
+    composable<InquiryRoute> { com.wordmate.android.feature.mypage.InquiryScreen(onBack = { navController.popBackStack() }) }
 }
