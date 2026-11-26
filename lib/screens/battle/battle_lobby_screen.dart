@@ -11,9 +11,7 @@ import '../../widgets/buttons.dart';
 import '../../widgets/layout.dart';
 import '../../widgets/sheets.dart';
 import 'battle_home_screen.dart';
-
-/// 대결이 시작되면 이동할 화면. 대결 진행 커밋에서 연결한다.
-void Function(BuildContext context) startBattle = (context) => Navigator.pop(context);
+import 'battle_play_screen.dart';
 
 /// 대기실 (Figma "대기실", "내가 방장이 아닐때 대기실").
 class BattleLobbyScreen extends StatefulWidget {
@@ -37,9 +35,11 @@ class _BattleLobbyScreenState extends State<BattleLobbyScreen> {
       if (room.players.length < room.settings.maxPlayers) {
         setState(() => room.players.add(const BattlePlayer('이서연', '2학년 2반')));
       }
-      if (!me.isHost) _timers.add(Timer(const Duration(seconds: 2), () => startBattle(context)));
+      if (!me.isHost) _timers.add(Timer(const Duration(seconds: 2), _start));
     }));
   }
+
+  void _start() => replace(context, const BattlePlayScreen());
 
   @override
   void dispose() {
@@ -115,7 +115,7 @@ class _BattleLobbyScreenState extends State<BattleLobbyScreen> {
       ),
       bottomNavigationBar: me.isHost
           ? BottomCta('${room.players.length}명으로 시작하기',
-              enabled: room.players.length >= 2, onPressed: () => startBattle(context))
+              enabled: room.players.length >= 2, onPressed: _start)
           : const BottomCta('방장이 시작하길 기다리는 중', enabled: false, onPressed: null),
     );
   }

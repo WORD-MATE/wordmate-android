@@ -141,11 +141,11 @@ class SampleData {
                 ),
       ];
 
-  static List<BattleRecord> battleRecords() => const [
-        BattleRecord(1, '수능 필수 영단어 Day 12', '오늘 · 8명 참여', 8, 1, 1320),
-        BattleRecord(2, '교과서 2학년 3단원', '어제 · 4명 참여', 4, 2, 1116),
-        BattleRecord(3, 'IT 기술 영어', '11월 5일 · 6명 참여', 6, 3, 1050),
-        BattleRecord(4, '토익 빈출 동사', '11월 2일 · 5명 참여', 5, 4, 890),
+  static List<BattleRecord> battleRecords() => [
+        const BattleRecord(1, '수능 필수 영단어 Day 12', '오늘 · 8명 참여', 8, 1, 1320),
+        const BattleRecord(2, '교과서 2학년 3단원', '어제 · 4명 참여', 4, 2, 1116),
+        const BattleRecord(3, 'IT 기술 영어', '11월 5일 · 6명 참여', 6, 3, 1050),
+        const BattleRecord(4, '토익 빈출 동사', '11월 2일 · 5명 참여', 5, 4, 890),
       ];
 
   static const badges = [
