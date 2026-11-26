@@ -130,7 +130,7 @@ internal object SampleData {
                 rank = rank,
                 name = names[(rank + seed) % names.size],
                 schoolInfo = "${(rank % 3) + 1}학년 ${(rank % 5) + 1}반",
-                xp = 1_640 - rank * 40 + seed * 7,
+                xp = 1_654 - rank * 54 + seed * 7,
                 delta = listOf(3, -1, 0, 2, -4, 1)[(rank + seed) % 6],
             )
         }.toMutableList()

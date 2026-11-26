@@ -134,7 +134,7 @@ private fun androidx.navigation.NavGraphBuilder.mainTabs(navController: NavHostC
             onMatched = { navController.navigate(BattleLobbyRoute) },
         )
     }
-    composable<RankingRoute> { PlaceholderScreen("랭킹") }
+    composable<RankingRoute> { com.wordmate.android.feature.ranking.RankingScreen() }
     composable<MyPageRoute> { PlaceholderScreen("마이페이지") }
 }
 

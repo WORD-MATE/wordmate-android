@@ -186,9 +186,10 @@ class InMemoryWordMateRepository : WordMateRepository {
 
     override fun ranking(scope: RankingScope, period: RankingPeriod): List<RankingEntry> {
         val me = _user.value
-        return SampleData.ranking(scope.ordinal * 3 + period.ordinal).map {
-            if (it.isMe) it.copy(name = me.name, xp = me.xp) else it
-        }
+        return SampleData.ranking(scope.ordinal * 3 + period.ordinal)
+            .map { if (it.isMe) it.copy(name = me.name, xp = me.xp) else it }
+            .sortedByDescending { it.xp }
+            .mapIndexed { index, entry -> entry.copy(rank = index + 1) }
     }
 
     override fun createRoom(settings: BattleSettings): BattleRoom {
