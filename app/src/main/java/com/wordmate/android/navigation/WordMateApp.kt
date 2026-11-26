@@ -27,6 +27,8 @@ import com.wordmate.android.feature.auth.LoginScreen
 import com.wordmate.android.feature.auth.TermDetailScreen
 import com.wordmate.android.feature.auth.TermType
 import com.wordmate.android.feature.auth.TermsScreen
+import com.wordmate.android.feature.wordpack.PackDetailScreen
+import com.wordmate.android.feature.wordpack.WordPacksScreen
 import com.wordmate.android.core.designsystem.theme.WmColors
 import com.wordmate.android.core.designsystem.theme.WmTypography
 
@@ -103,7 +105,12 @@ private fun androidx.navigation.NavGraphBuilder.mainTabs(navController: NavHostC
             onBattleCodeClick = { navController.navigate(BattleCodeRoute) },
         )
     }
-    composable<WordPacksRoute> { PlaceholderScreen("단어팩") }
+    composable<WordPacksRoute> {
+        WordPacksScreen(
+            onPackClick = { navController.navigate(PackDetailRoute(it)) },
+            onCreateClick = { navController.navigate(PackCreateRoute) },
+        )
+    }
     composable<BattleRoute> { PlaceholderScreen("대결") }
     composable<RankingRoute> { PlaceholderScreen("랭킹") }
     composable<MyPageRoute> { PlaceholderScreen("마이페이지") }
@@ -116,9 +123,14 @@ private fun androidx.navigation.NavGraphBuilder.featureGraph(navController: NavH
     myPageGraph(navController)
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun androidx.navigation.NavGraphBuilder.wordPackGraph(navController: NavHostController) {
-    composable<PackDetailRoute> { PlaceholderScreen("단어팩 상세") }
+    composable<PackDetailRoute> { entry ->
+        PackDetailScreen(
+            packId = entry.toRoute<PackDetailRoute>().packId,
+            onBack = { navController.popBackStack() },
+            onStudyClick = { navController.navigate(StudySetupRoute(it)) },
+        )
+    }
     composable<PackCreateRoute> { PlaceholderScreen("단어팩 만들기") }
 }
 
